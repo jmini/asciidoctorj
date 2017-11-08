@@ -1,0 +1,20 @@
+apply plugin: 'osgi'
+
+dependencies {
+}
+
+
+javadoc {
+  classpath = sourceSets.main.output + sourceSets.main.compileClasspath + project(':asciidoctorj-test-support').sourceSets.test.output
+}
+
+
+jar {
+  manifest {
+    symbolicName = 'org.asciidoctor'
+    instruction 'Export-Package',
+      "org.asciidoctor.ast;version=\"${version}\""
+  }
+}
+
+
