@@ -1,6 +1,5 @@
 package org.asciidoctor.ast;
 
-import java.util.List;
 import java.util.Map;
 
 public interface Document extends StructuralNode {
@@ -46,12 +45,6 @@ public interface Document extends StructuralNode {
      * @return basebackend attribute value
      */
     boolean basebackend(String backend);
-
-    /**
-     *
-     * @return blocks contained within current Document.
-     */
-    List<StructuralNode> blocks();
 
     /**
      *
