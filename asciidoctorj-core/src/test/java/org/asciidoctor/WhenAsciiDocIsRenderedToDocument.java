@@ -70,7 +70,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     @Test
     public void should_return_section_blocks() {
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
-        Section section = (Section) document.blocks().get(1);
+        Section section = (Section) document.getBlocks().get(1);
         assertThat(section.index(), is(0));
         assertThat(section.sectname(), either(is("sect1")).or(is("section")));
         assertThat(section.special(), is(false));
@@ -148,7 +148,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     @Test
     public void should_be_able_to_get_roles() {
         Document document = asciidoctor.load(ROLE, new HashMap<String, Object>());
-        StructuralNode abstractBlock = document.blocks().get(0);
+        StructuralNode abstractBlock = document.getBlocks().get(0);
         assertThat(abstractBlock.getRole(), is("famous"));
         assertThat(abstractBlock.hasRole("famous"), is(true));
         assertThat(abstractBlock.isRole(), is(true));
@@ -159,7 +159,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     public void should_be_able_to_add_role() {
         final String tmpRole = "tmpRole";
         Document document = asciidoctor.load(ROLE, new HashMap<String, Object>());
-        StructuralNode abstractBlock = document.blocks().get(0);
+        StructuralNode abstractBlock = document.getBlocks().get(0);
         assertThat(abstractBlock.hasRole(tmpRole), is(false));
         abstractBlock.addRole(tmpRole);
         assertThat(abstractBlock.hasRole(tmpRole), is(true));
@@ -169,7 +169,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     public void should_be_able_to_remove_role() {
         final String famousRole = "famous";
         Document document = asciidoctor.load(ROLE, new HashMap<String, Object>());
-        StructuralNode abstractBlock = document.blocks().get(0);
+        StructuralNode abstractBlock = document.getBlocks().get(0);
         assertThat(abstractBlock.hasRole(famousRole), is(true));
         abstractBlock.removeRole(famousRole);
         assertThat(abstractBlock.hasRole(famousRole), is(false));
@@ -178,7 +178,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     @Test
     public void should_be_able_to_get_reftext() {
         Document document = asciidoctor.load(REFTEXT, new HashMap<String, Object>());
-        StructuralNode abstractBlock = document.blocks().get(0);
+        StructuralNode abstractBlock = document.getBlocks().get(0);
         assertThat(abstractBlock.getReftext(), is("the first section"));
         assertThat(abstractBlock.isReftext(), is(true));
     }
