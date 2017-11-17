@@ -149,7 +149,7 @@ public class JRubyAsciidoctor implements Asciidoctor {
         return StructuredDocumentImpl.createStructuredDocument(toDocumentHeader(documentImpl), contentParts);
     }
 
-    private List<ContentPart> getContents(List<StructuralNode> blocks, int level, int maxDeepLevel) {
+    private List<ContentPart> getContents(List<? extends StructuralNode> blocks, int level, int maxDeepLevel) {
         // finish getting childs if max structure level was riched
         if (level > maxDeepLevel) {
             return null;

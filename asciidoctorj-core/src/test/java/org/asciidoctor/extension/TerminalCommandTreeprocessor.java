@@ -28,7 +28,8 @@ public class TerminalCommandTreeprocessor extends Treeprocessor {
 
     private void processBlock(StructuralNode block) {
 
-        List<StructuralNode> blocks = block.getBlocks();
+        @SuppressWarnings("unchecked")
+        List<StructuralNode> blocks = (List<StructuralNode>) block.getBlocks();
 
         for (int i = 0; i < blocks.size(); i++) {
             final StructuralNode currentBlock = blocks.get(i);

@@ -850,7 +850,7 @@ public class WhenJavaExtensionGroupIsRegistered {
             .treeprocessor(new Treeprocessor() {
                 @Override
                 public Document process(Document document) {
-                    List<StructuralNode> blocks=document.getBlocks();
+                    List<? extends StructuralNode> blocks=document.getBlocks();
                     for (StructuralNode block : blocks) {
                         for (StructuralNode block2 : block.getBlocks()) {
                             if(block2 instanceof Section)

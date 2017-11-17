@@ -97,7 +97,7 @@ public class WhenAsciiDocIsRenderedToDocument {
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
         Map<Object, Object> selector = new HashMap<Object, Object>();
         selector.put("context", ":image");
-        List<StructuralNode> findBy = document.findBy(selector);
+        List<? extends StructuralNode> findBy = document.findBy(selector);
         assertThat(findBy, hasSize(2));
 
         assertThat((String)findBy.get(0).getAttributes().get("target"), is("tiger.png"));
@@ -267,7 +267,7 @@ public class WhenAsciiDocIsRenderedToDocument {
         Document document = asciidoctor.loadFile(file, OptionsBuilder.options().option("sourcemap", "true").docType("book").asMap());
         Map<Object, Object> selector = new HashMap<Object, Object>();
         selector.put("context", ":paragraph");
-        List<StructuralNode> findBy = document.findBy(selector);
+        List<? extends StructuralNode> findBy = document.findBy(selector);
         StructuralNode block = findBy.get(0);
 
         // Then
@@ -298,7 +298,7 @@ public class WhenAsciiDocIsRenderedToDocument {
             "\n";
 
         Document document = asciidoctor.load(documentWithAttributes, new HashMap<String, Object>());
-        List<StructuralNode> blocks = document.getBlocks();
+        List<? extends StructuralNode> blocks = document.getBlocks();
 
         Section section = (Section) blocks.get(1);
         section.setAttribute("testattr", "testvalue", true);
@@ -329,7 +329,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     			+ "\n";
 
         Document document = asciidoctor.load(documentWithPreambleAndSection, new HashMap<String, Object>());
-        List<StructuralNode> blocks = document.getBlocks();
+        List<? extends StructuralNode> blocks = document.getBlocks();
 
         StructuralNode preambleContainer = blocks.get(0);
         assertThat(preambleContainer.getContentModel(), is("compound"));

@@ -59,12 +59,12 @@ public interface StructuralNode extends ContentNode {
      * @return The list of child blocks of this block
      * @deprecated Please use {@linkplain #getBlocks()} instead
      */
-    List<StructuralNode> blocks();
+    List<? extends StructuralNode> blocks();
 
     /**
      * @return The list of child blocks of this block
      */
-    List<StructuralNode> getBlocks();
+    List<? extends StructuralNode> getBlocks();
 
     /**
      * Appends a new child block as the last block to this block.
@@ -78,7 +78,7 @@ public interface StructuralNode extends ContentNode {
     Object content();
     Object getContent();
     String convert();
-    List<StructuralNode> findBy(Map<Object, Object> selector);
+    List<? extends StructuralNode> findBy(Map<Object, Object> selector);
     int getLevel();
 
     /**

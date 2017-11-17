@@ -14,13 +14,13 @@ public interface Table extends StructuralNode {
 
     boolean hasHeaderOption();
 
-    List<Column> getColumns();
+    List<? extends Column> getColumns();
 
-    List<Row> getHeader();
+    List<? extends Row> getHeader();
 
-    List<Row> getFooter();
+    List<? extends Row> getFooter();
 
-    List<Row> getBody();
+    List<? extends Row> getBody();
 
     /**
      * Returns the frame attribute of the table that defines what frame to render around the table.
