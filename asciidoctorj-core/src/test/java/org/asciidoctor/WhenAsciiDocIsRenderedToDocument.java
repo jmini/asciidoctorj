@@ -71,16 +71,16 @@ public class WhenAsciiDocIsRenderedToDocument {
     public void should_return_section_blocks() {
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
         Section section = (Section) document.getBlocks().get(1);
-        assertThat(section.index(), is(0));
-        assertThat(section.sectname(), either(is("sect1")).or(is("section")));
-        assertThat(section.special(), is(false));
+        assertThat(section.getIndex(), is(0));
+        assertThat(section.getSectionName(), either(is("sect1")).or(is("section")));
+        assertThat(section.isSpecial(), is(false));
     }
 
     @Test
     public void should_return_blocks_from_a_document() {
 
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
-        assertThat(document.doctitle(), is("Document Title"));
+        assertThat(document.getDoctitle(), is("Document Title"));
 
     }
 
@@ -88,7 +88,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     public void should_return_a_document_object_from_string() {
 
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
-        assertThat(document.doctitle(), is("Document Title"));
+        assertThat(document.getDoctitle(), is("Document Title"));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class WhenAsciiDocIsRenderedToDocument {
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
         Map<Object, Object> selector = new HashMap<Object, Object>();
         selector.put("context", ":image");
-        List<StructuralNode> findBy = document.findBy(selector);
+        List<? extends StructuralNode> findBy = document.findBy(selector);
         assertThat(findBy, hasSize(2));
 
         assertThat((String)findBy.get(0).getAttributes().get("target"), is("tiger.png"));
@@ -140,9 +140,9 @@ public class WhenAsciiDocIsRenderedToDocument {
                                                     .compact(true).asMap();
         Document document = asciidoctor.load(DOCUMENT, options);
         assertThat(document.getAttributes(), hasKey("toc-placement"));
-        assertThat(document.hasAttr("toc-placement"), is(true));
-        assertThat(document.isAttr("toc-placement", "auto", false), is(true));
-        assertThat(document.getAttr("toc-placement", "", false).toString(), is("auto"));
+        assertThat(document.hasAttribute("toc-placement"), is(true));
+        assertThat(document.isAttribute("toc-placement", "auto", false), is(true));
+        assertThat(document.getAttribute("toc-placement", "", false).toString(), is("auto"));
     }
 
     @Test
@@ -243,8 +243,8 @@ public class WhenAsciiDocIsRenderedToDocument {
         final Object attributeName = "testattribute";
         final Object attributeValue = "testvalue";
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
-        assertThat(document.setAttr(attributeName, attributeValue, true), is(true));
-        assertThat(document.getAttr(attributeName), is(attributeValue));
+        assertThat(document.setAttribute(attributeName, attributeValue, true), is(true));
+        assertThat(document.getAttribute(attributeName), is(attributeValue));
         assertThat(document.getAttributes().get(attributeName), is(attributeValue));
     }
 
@@ -254,7 +254,7 @@ public class WhenAsciiDocIsRenderedToDocument {
         final Object attributeValue = "testvalue";
         Document document = asciidoctor.load(DOCUMENT, new HashMap<String, Object>());
         document.getAttributes().put(attributeName, attributeValue);
-        assertThat(document.getAttr(attributeName), is(attributeValue));
+        assertThat(document.getAttribute(attributeName), is(attributeValue));
         assertThat(document.getAttributes().get(attributeName), is(attributeValue));
     }
 
@@ -267,7 +267,7 @@ public class WhenAsciiDocIsRenderedToDocument {
         Document document = asciidoctor.loadFile(file, OptionsBuilder.options().option("sourcemap", "true").docType("book").asMap());
         Map<Object, Object> selector = new HashMap<Object, Object>();
         selector.put("context", ":paragraph");
-        List<StructuralNode> findBy = document.findBy(selector);
+        List<? extends StructuralNode> findBy = document.findBy(selector);
         StructuralNode block = findBy.get(0);
 
         // Then
@@ -298,20 +298,20 @@ public class WhenAsciiDocIsRenderedToDocument {
             "\n";
 
         Document document = asciidoctor.load(documentWithAttributes, new HashMap<String, Object>());
-        List<StructuralNode> blocks = document.getBlocks();
+        List<? extends StructuralNode> blocks = document.getBlocks();
 
         Section section = (Section) blocks.get(1);
-        section.setAttr("testattr", "testvalue", true);
+        section.setAttribute("testattr", "testvalue", true);
 
-        assertThat(document.hasAttr("testattr"), is(false));
+        assertThat(document.hasAttribute("testattr"), is(false));
 
-        assertThat(section.hasAttr("testattr"), is(true));
-        assertThat(section.hasAttr("testattr", true), is(true));
-        assertThat(section.hasAttr("testattr", false), is(true));
-        assertThat(section.isAttr("testattr", "testvalue"), is(true));
+        assertThat(section.hasAttribute("testattr"), is(true));
+        assertThat(section.hasAttribute("testattr", true), is(true));
+        assertThat(section.hasAttribute("testattr", false), is(true));
+        assertThat(section.isAttribute("testattr", "testvalue"), is(true));
 
-        assertThat(section.hasAttr("docattr", true), is(true));
-        assertThat(section.hasAttr("docattr", false), is(false));
+        assertThat(section.hasAttribute("docattr", true), is(true));
+        assertThat(section.hasAttribute("docattr", false), is(false));
     }
 
     @Test
@@ -329,7 +329,7 @@ public class WhenAsciiDocIsRenderedToDocument {
     			+ "\n";
 
         Document document = asciidoctor.load(documentWithPreambleAndSection, new HashMap<String, Object>());
-        List<StructuralNode> blocks = document.getBlocks();
+        List<? extends StructuralNode> blocks = document.getBlocks();
 
         StructuralNode preambleContainer = blocks.get(0);
         assertThat(preambleContainer.getContentModel(), is("compound"));

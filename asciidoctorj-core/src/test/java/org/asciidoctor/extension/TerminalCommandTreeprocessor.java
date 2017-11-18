@@ -28,13 +28,14 @@ public class TerminalCommandTreeprocessor extends Treeprocessor {
 
     private void processBlock(StructuralNode block) {
 
-        List<StructuralNode> blocks = block.getBlocks();
+        @SuppressWarnings("unchecked")
+        List<StructuralNode> blocks = (List<StructuralNode>) block.getBlocks();
 
         for (int i = 0; i < blocks.size(); i++) {
             final StructuralNode currentBlock = blocks.get(i);
             if(currentBlock instanceof StructuralNode) {
                 if ("paragraph".equals(currentBlock.getContext())) {
-                    List<String> lines = ((Block) currentBlock).lines();
+                    List<String> lines = ((Block) currentBlock).getLines();
                     if (lines.size() > 0 && lines.get(0).startsWith("$")) {
                         blocks.set(i, convertToTerminalListing((Block) currentBlock));
                     }
@@ -51,7 +52,7 @@ public class TerminalCommandTreeprocessor extends Treeprocessor {
         attributes.put("role", "terminal");
         StringBuilder resultLines = new StringBuilder();
 
-        List<String> lines = block.lines();
+        List<String> lines = block.getLines();
 
         for (String line : lines) {
             if (line.startsWith("$")) {

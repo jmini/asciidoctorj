@@ -1,0 +1,13 @@
+dependencies {
+    compile 'junit:junit:4.12'
+    compile 'org.mockito:mockito-core:2.12.0'
+    compile 'org.assertj:assertj-core:3.8.0'
+    compile project(path: ':asciidoctorj-api')
+}
+
+def javaApiUrl = "https://docs.oracle.com/javase/6/docs/api"
+def junitURL = "http://junit.org/javadoc/latest/"
+
+javadoc {
+    options.links(javaApiUrl, junitURL)
+}

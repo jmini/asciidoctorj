@@ -18,6 +18,7 @@ dependencies {
   testCompile "com.google.guava:guava:$guavaVersion"
   testCompile "org.jsoup:jsoup:$jsoupVersion"
   testCompile "io.netty:netty-all:$nettyVersion"
+  testCompile project(path: ':asciidoctorj-api-testing')
   testCompile project(path: ':asciidoctorj-arquillian-extension')
 }
 

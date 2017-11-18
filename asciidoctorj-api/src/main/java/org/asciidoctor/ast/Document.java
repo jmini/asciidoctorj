@@ -24,18 +24,6 @@ public interface Document extends StructuralNode {
     String doctitle();
 
     /**
-     * 
-     * @return page title
-     */
-    String title();
-
-    /**
-     * 
-     * @return attributes defined in document
-     */
-    Map<String, Object> getAttributes();
-
-    /**
      * @return basebackend attribute value
      */
     boolean isBasebackend(String backend);
